@@ -39,3 +39,6 @@ DialogSample/.vs/DialogSample/v15/.suo
 *.suo
 *.tlog
 *.idb
+*.opendb
+*.log
+*.aps

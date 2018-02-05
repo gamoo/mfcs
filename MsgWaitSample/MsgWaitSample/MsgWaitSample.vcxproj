@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{8DA5B623-3215-43E0-AC80-68FFF297F3E6}</ProjectGuid>
+    <ProjectGuid>{39F33D21-0660-438A-8A21-DB954C1EC329}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <RootNamespace>DialogSample</RootNamespace>
+    <RootNamespace>MsgWaitSample</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -183,15 +183,19 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DialogSample.h" />
-    <ClInclude Include="DialogSampleDlg.h" />
+    <ClInclude Include="FirstThread.h" />
+    <ClInclude Include="MsgWaitSample.h" />
+    <ClInclude Include="MsgWaitSampleDlg.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SecondThread.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DialogSample.cpp" />
-    <ClCompile Include="DialogSampleDlg.cpp" />
+    <ClCompile Include="FirstThread.cpp" />
+    <ClCompile Include="MsgWaitSample.cpp" />
+    <ClCompile Include="MsgWaitSampleDlg.cpp" />
+    <ClCompile Include="SecondThread.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -200,13 +204,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DialogSample.rc" />
+    <ResourceCompile Include="MsgWaitSample.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\DialogSample.rc2" />
+    <None Include="res\MsgWaitSample.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\DialogSample.ico" />
+    <Image Include="res\MsgWaitSample.ico" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
   </ItemGroup>
