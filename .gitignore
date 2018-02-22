@@ -42,3 +42,6 @@ DialogSample/.vs/DialogSample/v15/.suo
 *.opendb
 *.log
 *.aps
+*.opensdf
+*.dmp
+*.user
