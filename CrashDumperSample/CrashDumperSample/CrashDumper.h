@@ -29,7 +29,7 @@ namespace MobigoSecure {
 		static BOOL WriteCommandToLog(CString strCommand, CString strFilePath);
 		static BOOL WriteDump(CString strFilePath, struct _EXCEPTION_POINTERS *pExceptionInfo);
 
-		static BOOL UploadFiles(PathList& pathList);
+		static BOOL SendCrashReport(PathList& pathList);
 
 		static CrashDumper* m_pInstance;
 

@@ -9,7 +9,7 @@
 
 using namespace MobigoSecure;
 
-const CString DEFAULT_SERVER_ADDRESS = _T("127.0.0.1");
+const CString DEFAULT_SERVER_ADDRESS = _T("192.168.0.182");
 const INTERNET_PORT DEFAULT_SERVER_PORT = 1337U;
 
 const DWORD DUMP_PROCESS_TIMEOUT = 20000;
@@ -112,7 +112,7 @@ LONG WINAPI CrashDumper::ExceptionFilter(struct _EXCEPTION_POINTERS *pExceptionI
 	pathList.emplace_back(strIpconfigLogPath);
 	pathList.emplace_back(strDumpFilePath);
 
-	UploadFiles(pathList);
+	SendCrashReport(pathList);
 
 	return EXCEPTION_CONTINUE_SEARCH;
 }
@@ -191,7 +191,7 @@ BOOL CrashDumper::WriteDump(CString strFilePath, struct _EXCEPTION_POINTERS *pEx
 	return FALSE;
 }
 
-BOOL CrashDumper::UploadFiles(PathList& pathList)
+BOOL CrashDumper::SendCrashReport(PathList& pathList)
 {
 	CInternetSession internetSession;
 
@@ -232,11 +232,16 @@ BOOL CrashDumper::UploadFiles(PathList& pathList)
 
 		pHttpFile->SendRequestEx(DWORD(tsize), HSR_SYNC | HSR_INITIATE);
 
+#ifdef UNICODE
 		USES_CONVERSION;
-
+#endif
 		std::for_each(pairList.begin(), pairList.end(), [&](std::pair<CString, CString> m) {
 
+#ifdef UNICODE
 			pHttpFile->Write(W2A(m.second), m.second.GetLength());
+#else 
+			pHttpFile->Write(m.second, m.second.GetLength());
+#endif
 
 			CFile file;
 			if (file.Open(m.first, CFile::modeRead | CFile::typeBinary)) {
@@ -258,7 +263,11 @@ BOOL CrashDumper::UploadFiles(PathList& pathList)
 
 		});
 
+#ifdef UNICODE
 		pHttpFile->Write(W2A(strSuffix.GetBuffer()), strSuffix.GetLength());
+#else
+		pHttpFile->Write(strSuffix.GetBuffer(), strSuffix.GetLength());
+#endif
 
 		pHttpFile->EndRequest(HSR_SYNC);
 
@@ -270,12 +279,13 @@ BOOL CrashDumper::UploadFiles(PathList& pathList)
 		TCHAR szResp[1024];
 
 		while (pHttpFile->ReadString(szResp, 1024)) {
-
+			
+			// TODO: UTF8 Ã³¸®
 			AfxMessageBox(szResp);
-			char *szBuf = W2A(szResp);
-			OutputDebugString(A2W(szBuf));
+			//char *szBuf = W2A(szResp);
+			//OutputDebugString(A2W(szBuf));
 		}
-
+		
 		pHttpFile->Close();
 		pHttpConnection->Close();
 
